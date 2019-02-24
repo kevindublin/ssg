@@ -19,13 +19,16 @@ def main():
 #write function which converts the template and content to strings and combines the pages
 def write(page_src='content/index.html', page_output='docs/index.html', page_title='Vin Dublin | Full Stack Developer'):
 
-    template = open("template/base.html").read()
+    from jinja2 import Template
+
     page_content = open(page_src).read()
-
-    template = template.replace('{{page_title}}', page_title)
-
-    page_render = template.replace('{{body_content}}', page_content)
-    open(page_output, 'w+').write(page_render)
+    template_html = open("template/base.html").read()
+    template = Template(template_html)
+    rendered_page = template.render(
+    page_title = page_title,
+    body_content = page_content,
+    )
+    open(page_output, 'w+').write(rendered_page)
     pass
 
 #creates a list with dictionaries for the locations and titles of pages
@@ -47,8 +50,6 @@ def site_index():
         "title" : name,
         })
         pass
-
-    print(pages)
 
     return pages
     pass
