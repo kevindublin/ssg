@@ -1,60 +1,52 @@
-#main function which pulls the index of pages and titles, then sends to the write function
+# import modules from utilities
+import utils
+import sys
+
+utils.main()
+
+
 def main():
 
-    pages = site_index()
-
-    for page in pages:
-        page_src = page['source']
-        page_output = page['output']
-        page_title = page['title']
-        if page_title == 'index':
-            page_title = 'Vin Dublin | Full Stack Developer'
-            pass
-        write(page_src, page_output, page_title)
-        pass
-
-    print('...Completed Writing Pages!');
-    pass
-
-#write function which converts the template and content to strings and combines the pages
-def write(page_src='content/index.html', page_output='docs/index.html', page_title='Vin Dublin | Full Stack Developer'):
-
-    from jinja2 import Template
-
-    page_content = open(page_src).read()
-    template_html = open("template/base.html").read()
-    template = Template(template_html)
-    rendered_page = template.render(
-    page_title = page_title,
-    body_content = page_content,
-    )
-    open(page_output, 'w+').write(rendered_page)
-    pass
-
-#creates a list with dictionaries for the locations and titles of pages
-def site_index():
-
-    pages = []
-
-    import  glob
-    import  os
-    source_files = glob.glob("content/*.html")
-
-    for source in source_files:
-        file_name = os.path.basename(source)
-        name, extension = os.path.splitext(file_name)
-        output_dir = source.replace('content/', 'docs/')
-        pages.append({
-        "source" : source,
-        "output" : output_dir,
-        "title" : name,
-        })
-        pass
-
-    return pages
-    pass
+    print("This is argv:", sys.argv)
+    command = sys.argv[1]
+    print(command)
+    if command == "build":
+        print("Build was specified")
+        print("Building pages...")
+        utils.main()
+    elif command == "new":
+        print("New page was specified")
+        new_page = input('new page name >')
+        new_page = new_page.lower()
+        if new_page.isalnum() is False:
+            main()
+        print("Building new page...")
+        new_file = 'content/'+new_page+'.html'
+        open(new_file, 'w+').write(
+            '''
+                <h3>New Page</h3>
+                <br />
+                <img src="img/vin.jpg" class="img-photo"/>
+                <br />
+                 <p>
+                    Insert new text.
+                 </p>
+                 <br />
+                 <ul class="list-unstyled"
+                    <li><a href="mailto:vin@kevindublin.com">
+                    <button type="button" class="btn btn-dark btn-block">Contact
+                    </button></a></li>
+                    <li><a href="resume.pdf">
+                    <button type="button" class="btn btn-dark btn-block">Resume
+                    </button></a></li>
+                </ul>
+            </div>
+        '''
+        )
+        utils.main()
+    else:
+        print("Please specify ’build’ or ’new’")
 
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

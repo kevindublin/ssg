@@ -1,3 +1,6 @@
+.navbar-dark .navbar-nav .nav-item.active {
+  color: red;
+}
 
 body {
 
@@ -68,7 +71,7 @@ background-repeat: repeat;
   animation: kenburns 10s infinite;
 }
 
-@@keyframes kenburns {
+@@keyframes pan {
   0%  {
     opacity: 0;
   }
@@ -86,8 +89,6 @@ background-repeat: repeat;
     opacity: 1;
   }
 }
-
-
 
 
 .img-photo {
@@ -144,7 +145,7 @@ h1, h2, h3, h5, h6 {
   min-width: 300px;
 }
 
-  .skills-card-top {
+.skills-card-top {
 
     margin-left: 50px;
     padding-top: 50px;

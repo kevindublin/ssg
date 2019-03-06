@@ -27,15 +27,16 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="index.html">About <span class="sr-only">(current)</span></a>
+      <li class="nav-item active">
+      {% for page in pages %}
+      {% if page.title ==  'index' %}
+        <a class="nav-link" href="../{{ page.output }}">About</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="projects.html">Projects</a>
+      {% else %}
+        <a class="nav-link" href="../{{ page.output }}">{{ page.title | title }}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="blog.html">Blog</a>
-      </li>
+      {% endif %}
+      {% endfor %}
     </ul>
     <ul class="navbar-nav" float: right>
       <li><a class="icon-linkedin social-button borderless static" href="https://www.linkedin.com/in/kevindublin"></a></li>
